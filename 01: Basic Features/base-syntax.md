@@ -109,3 +109,57 @@ class App extends Component {
 
 export default App;
 ```
+
+## Working with Props
+
+```javascript
+import React from "react";
+
+const person = (props) => {
+  return (
+    <div>
+      <p>
+        I am {props.name} and I am {props.age} years old.
+      </p>
+      <p>{props.children}</p>
+    </div>
+  );
+};
+
+export default person;
+```
+
+`props` allow you to pass data from a parent (wrapping) component to a child (embedded) component.
+
+## Understanding & using state
+
+```javascript
+import React, { component } from "react";
+import "./App.css";
+import Person from "./Person/Person";
+
+class App extends Component {
+  state = {
+    persons: [
+      { name: "Max", age: 28 },
+      { name: "Manu", age: 29 },
+    ],
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Hi, I am React App</h1>
+        <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age}
+        />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+Whilst props allow you to pass data down the component tree (and hence trigger an UI update), state is used to change the component, well, state from within. Changes to state also trigger an UI update.
