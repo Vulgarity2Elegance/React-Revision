@@ -165,3 +165,5 @@ export default App;
 Whilst props allow you to pass data down the component tree (and hence trigger an UI update), state is used to change the component from within.
 
 Any changes to state will also trigger an UI update.
+
+## EventListener
