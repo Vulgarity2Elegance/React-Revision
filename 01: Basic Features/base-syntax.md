@@ -166,4 +166,89 @@ Whilst props allow you to pass data down the component tree (and hence trigger a
 
 Any changes to state will also trigger an UI update.
 
-## EventListener
+## setState()
+
+```javascript
+import React, { component } from "react";
+import "./App.css";
+import Person from "./Person/Person";
+
+class App extends Component {
+  state = {
+    persons: [
+      { name: "Max", age: 28 },
+      { name: "Manu", age: 29 },
+    ],
+  };
+
+  switchNameHandler = () => {
+    this.setState({
+      persons: [
+        { name: "Youzhi", age: 28 },
+        { name: "Manu", age: 30 },
+      ],
+    });
+    // This method takes an object as an argument and will merge with the exisiting state, ensures React updates the DOM due to a change to state
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Hi, I am React App</h1>
+        <button onclick={this.switchNameHandler}>Switch Name</button>
+        // This is a reference to that property which holds a function
+        <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age}
+        />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+## React Hooks: useState()
+
+```javascript
+import React, { useState } from "react";
+import "./App.css";
+import Person from "./Person/Person";
+
+const App = (props) => {
+  const [personsState, setPersonsState] = useState({
+    persons: [
+      { name: "Max", age: 28 },
+      { name: "Manu", age: 29 },
+    ],
+  });
+
+  // setPersonsState does not merge whatever you pass to it with the old state, instead it replaces the old state with it.
+
+  const [otherState, setOtherState] = useState("some other values");
+  // In this case, use useState() multiple times if you have other states
+
+  const switchNameHandler = () => {
+    setPersonsState({
+      persons: [
+        { name: "Youzhi", age: 28 },
+        { name: "Manu", age: 30 },
+      ],
+    });
+  };
+
+  return (
+    <div className="App">
+      <h1>Hi, I am React App</h1>
+      <button onclick={switchNameHandler}>Switch Name</button>
+      <Person
+        name={personsState.persons[0].name}
+        age={personsState.persons[0].age}
+      />
+    </div>
+  );
+};
+
+export default App;
+```
