@@ -252,3 +252,70 @@ const App = (props) => {
 
 export default App;
 ```
+
+## Passing Method References Between Components
+
+```javascript
+class App extends Component {
+  state = {
+    persons: [{ name: "Youzhi", age: 28 }],
+  };
+
+  switchNameHandler = (newName) => {
+    // console.log('Was clicked!');
+    // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
+    this.setState({
+      persons: [
+        { name: newName, age: 28 },
+        { name: "Manu", age: 29 },
+        { name: "Stephanie", age: 27 },
+      ],
+    });
+  };
+
+  nameChangedHandler = (event) => {
+    this.setState({
+      persons: [
+        { name: "Max", age: 28 },
+        { name: event.target.value, age: 29 },
+        { name: "Stephanie", age: 26 },
+      ],
+    });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age}
+          click={this.switchNameHandler.bind(this, "Max!")}
+          changed={this.nameChangedHandler}
+        >
+          My Hobbies: Racing
+        </Person>
+      </div>
+    );
+  }
+}
+```
+
+```javascript
+import React from "react";
+
+const person = (props) => {
+  return (
+    <div>
+      <p onClick={props.click}>
+        I'm {props.name} and I am {props.age} years old!
+      </p>
+      <p>{props.children}</p>
+      <input type="text" onChange={props.changed} value={props.name} />
+    </div>
+  );
+};
+
+export default person;
+```
+
+This clearly shows that React allows you to pass methods as props so that you can call a method which might change the state in another component which doesn't have direct access to the state.
