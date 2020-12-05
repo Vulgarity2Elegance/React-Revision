@@ -287,8 +287,8 @@ class App extends Component {
     return (
       <div className="App">
         <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
           click={this.switchNameHandler.bind(this, "Max!")}
           changed={this.nameChangedHandler}
         >
@@ -319,3 +319,9 @@ export default person;
 ```
 
 This clearly shows that React allows you to pass methods as props so that you can call a method which might change the state in another component which doesn't have direct access to the state.
+
+```javascript
+<button onClick={() => this.switchNameHandler("Youzhi!")}>Switch Name</button>
+```
+
+Alternatively, this shows another way of binding but an inefficient way of doing this. Usee bind()!
