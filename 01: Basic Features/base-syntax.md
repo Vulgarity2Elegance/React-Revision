@@ -312,6 +312,7 @@ const person = (props) => {
       </p>
       <p>{props.children}</p>
       <input type="text" onChange={props.changed} value={props.name} />
+      // two way binding and able to change name dynamically
     </div>
   );
 };
